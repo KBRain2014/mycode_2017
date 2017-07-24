@@ -1,0 +1,16 @@
+//定义委托
+public delegate void Asyncdelegate(int code, string msg, WebProxy objName);
+
+//异步调用完成时，执行回调方法
+private void CallbackMethod(IAsyncResult ar)
+{
+  Asyncdelegate dlgt = (Asyncdelegate)ar.AsyncState;
+  dlgt.EndInvoke(ar);
+}
+
+//异步调用Commit方法
+public vitual void Run(int code,string code_msg)
+{
+  Asyncdelegate isgt = new Asyncdelegate(Commit);
+  IAsyncResult ar = isgt.BeginInvoke(code,code_msg,null,new AsyncCallback(CallbackMethod),isgt);
+}
