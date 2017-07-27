@@ -1,0 +1,6 @@
+我在Profiler中看到 GC.MarkDependencies 的CPU消耗有900ms+， 虽然在退出战斗的时候调用了Resources.UnloadUnusedAssets(); 可是卡顿还是很明显，请问有什么推荐的方案吗？
+
+GC.MarkDependencies的消耗是由Resources.UnloadUnusedAssets引起的。该函数的主要作用是查找并卸载不再使用的资源。游戏场景越复杂、资源越多，该函数的开销越大，一般在300~2000 ms范围内。所以，我们在UWA报告中加入了对该函数的调用监测，以便让大家更好地掌控它的调用情况。
+请输入图片描述
+对于该函数的优化，我们建议一方面控制场景中不必要的资源量，同时通过UnloadAsset来及时卸载不再使用的资源，以减少Resources.UnloadUnusedAssets的耗时压力。
+后续，我们会在加载模块的相关文章中为大家详细讲解Resources.UnloadUnusedAssets的性能问题，敬请期待。
