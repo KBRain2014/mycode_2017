@@ -1,0 +1,95 @@
+首先，创建一个WigetMgr类
+
+public class WidgetMgr:MonoBehaviour{
+  
+  public List<Transform> widgets = new List<Transform>();
+  
+}
+
+为它创建Add Delete方法
+[CustomEditor(typeof(WidgetMgr))]
+public class WidgetEditor:Editor{
+  public override void OnInspectorGUI()
+  {
+    base.OnInspectorGUI();
+    if(GUILayout.Button("Add Widget"))
+    {
+      WigetMgr mgr = target as WidgetMgr;
+      List<Transform> TransformList = mgr.widgets
+    
+      Transform transform = null;
+      TransformList.Add(transform);
+    }
+    
+    if(GUILayout.Button("Delete Widget"))
+    {
+      WigetMgr mgr = target as WidgetMgr;
+      List<Transform> TransformList = mgr.widgets
+
+      TransformList.Remove(TransformList[TransformList.Count - 1]);
+    }
+    
+}
+
+这样就可以增加或删除各组件的Transform了，那怎么获取组件呢？
+
+public class BaseView
+{
+  private Dictionary<string,Componet> _widgetComDict = new Dictionary<string,Componet>();
+  
+  protected WidgetMgr widgetMgr
+  {
+    get
+    {
+      if(m_widgetMgr == null)
+      {
+        m_widgetMgr = gameObject.GetComponent<WidgetMgr>();
+      }
+      return m_widgetMgr;
+    }
+  }
+  
+  private T GetWidget<T>(int index) where T : Component
+  {
+    System.Type tt = typeof(T);
+    string key = string.Format("{0}_{1}",index,tt.FullName);
+    
+    if(_widgetComDict.ContainsKey(key))
+    {
+      return _widgetComDict[key] as T;
+    }
+    else
+    {
+      T com = widgetmgr.widgets[index].GetComponet<T>();
+      if(com != null)
+      {
+        _widgetComDict.add(key,com)
+      }
+      else
+      {
+        Debug.LogError("Can't find Component,index:"+index);
+        return default(T);
+      }
+        
+  }
+  
+  public Button GetButton(int index)
+  {
+    return GetWidget<Button>(index);
+  }
+  
+  public InputField GetInput(int index)
+  {
+    return GetWidget<InputField>(index);
+  }
+  
+  public Text GetText(int index)
+  {
+    return GetWidget<Text>(index);
+  }
+  
+  public Image GetImage(int index)
+  {
+    return GetWidget<Image>(index);
+  }
+}
