@@ -1,0 +1,24 @@
+public class AutoSetTextureUISprite:AssetPostprocessor{
+
+  public string AltasPath = "Assets/XRes";
+  void OnPreprocessTexture()
+  {
+      TextureImporter textureImporter = (TextureImporter)assetImporter;
+      textureImporter.textureType = TextureImporterType.Sprite;
+      if(assetPath.IndexOf(AltasPath) != -1)
+      {
+          string packingTag = assetPath.Substring((AltasPath).Length + 1)
+          packingTag = packingTag.Substring(0,packingTag.LastIndexOf("/")).Replace("/","_");
+          packingTag = "module_" + packingTag;
+          textureImporter.spritePackingTag = packingTag;
+      }
+      textureImporter.spriteImporterMode = SpriteImportMode.Single;
+      textureImporter.mipmapEnable = false;
+      textureImporter.alphaIsTransparency = true;
+      textureImporter.maxTextureSize = 1024;
+      textureImporter.warpMode = TextureWrapMode.Clamp;
+      textureImporter.anisoLevel = 1;
+          
+  }
+  
+}
