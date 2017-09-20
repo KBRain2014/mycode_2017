@@ -1,0 +1,3 @@
+var guids = AssetDatabase.FindAssets("t:sprite",new string[]{fullDir}
+
+var path = AssetDatabase.GUIDToAssetPath(guid);
