@@ -1,3 +1,11 @@
 var guids = AssetDatabase.FindAssets("t:sprite",new string[]{fullDir}
 
 var path = AssetDatabase.GUIDToAssetPath(guid);
+
+AssetDatabase.SaveAssets();
+AssetDatabase.Refresh();
+
+
+AssetBundleBuild 资源包编译
+
+加载本地png，AssetDatabase.LoadAssetAtPath<Sprite>("Assets/XRes/2233.png");
