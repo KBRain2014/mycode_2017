@@ -1,0 +1,22 @@
+private void UpdateRect()
+{
+    Vector3 lt = transform.TransformPoint(new Vector3(-0.5f,0,-0.5f));
+    Vector3 rt = transform.TransformPoint(new Vector3(0.5f,0,-0.5f));
+    Vector3 lb = transform.TransformPoint(new Vector3(-0.5f,0,0.5f));
+    Vector3 rb = transform.TransformPoint(new Vector3(0.5f,0,0.5f));
+    
+    rect = Rect.MinMaxRect(lt.x,lt.z,rb.x,rb.z);
+}
+
+private void DrawRect()
+{
+    Vector3 lt = new Vector3(rect.xMin,0,rect.yMin);
+    Vector3 rt = new Vector3(rect.xMax,0,rect.yMin);
+    Vector3 lb = new Vector3(rect.xMin,0,rect.yMax);
+    Vector3 rb = new Vector3(rect.xMax,0,rect.yMax);
+    
+    Debug.DrawLine(lt,rt,Color.yellow);
+    Debug.DrawLine(rt,rb,Color.yellow);
+    Debug.DrawLine(rb,lb,Color.yellow);
+    Debug.DrawLine(lb,lt,Color.yellow);
+}
